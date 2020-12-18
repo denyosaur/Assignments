@@ -1,0 +1,56 @@
+/* some colors you may find useful:
+  #115ff4
+  #060ce9
+  #28a200
+  #8d2ab5
+  #74119c
+*/
+th {
+  height: 3vw;
+  width: 8.7vw;
+  color: white;
+  background-color: #060ce9;
+}
+
+td {
+  width: 8.7vw;
+  height: 8.7vw;
+  color: white;
+  text-align: center;
+  background-color: #060ce9;
+}
+
+img {
+  margin-top: 15%;
+  margin-left:15%;
+}
+
+thead {
+  font-family: 'Copse';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.2vw;
+}
+
+.questionMark {
+  font-family: 'Oswald', sans-serif;
+  color: #ffd000;
+  text-shadow: 7px 7px #000000;
+  font-size: 3.2vw;
+}
+
+.question {
+  font-family: 'Copse';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.1vw;
+  text-shadow: 3px 3px #000000;
+}
+
+.answer {
+  font-family: 'Copse';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.1vw;
+  text-shadow: 3px 3px #000000;
+}
