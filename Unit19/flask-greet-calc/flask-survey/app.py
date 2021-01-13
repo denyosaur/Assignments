@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, flash
+from flask import Flask, request, redirect, render_template, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from surveys import satisfaction_survey as survey
 
@@ -9,36 +9,35 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 toolbar = DebugToolbarExtension(app)
 
 
-responses = []
-
-
 @app.route("/")
-"""
-Homepage for the questionnaire
-it only has a start button, the title of the survey, and instructions
-"""
-
-
 def homepage():
+    '''Homepage for the questionnaire
+    it only has a start button, the title of the survey, and instructions'''
     title = survey.title
     instructions = survey.instructions
-    responses.clear()
     return render_template("home.html", title=title, instructions=instructions)
 
 
+@app.route("/sess_save", methods=["GET", "POST"])
+def sess_save():
+    session["responses"] = []
+    return redirect("/questions/0")
+
+
 @app.route("/questions/<int:id>")
-"""
-Question page - presents the question and the the choices that go along with the question
-has a submit button that will record what the user selected
-If the length of the responses is shorted than the URL ID, the user is redirected back to their next question
-If there are enough repsonses, the user is redirected to thank you page
-"""
-
-
 def questionnaire(id):
-    if id > len(responses):
+    '''
+    Question page - presents the question and the the choices that go along with the question
+    has a submit button that will record what the user selected
+    If the length of the responses is shorted than the URL ID, the user is redirected back to their next question
+    If there are enough repsonses, the user is redirected to thank you page
+    '''
+    responses = session.get("responses")
+    if (responses is None):
+        return redirect("/")
+    if len(responses) != id:
         flash("trying to access out of order")
-        return redirect(f"/questions/{len(responses)}")
+        return redirect(f"/questions/{len(session_ans)}")
 
     if len(responses) == len(survey.questions):
         return redirect("/thanks")
@@ -51,25 +50,24 @@ def questionnaire(id):
 
 
 @app.route("/answer", methods=["GET", "POST"])
-""" 
-The user's responses are sent as a POST request and recorded in responses variable
-the user is then redirected back to their next question
-"""
-
-
 def update_question():
-    answer = request.form["choice"]
-    responses.append(answer)
+    '''
+    The user's responses are sent as a POST request and recorded in responses variable
+    the user is then redirected back to their next question
+    '''
+    choice = request.form["choice"]
 
-    if len(responses) == len(survey.questions):
+    session_ans = session["responses"]
+    session_ans.append(choice)
+    session["responses"] = session_ans
+
+    if len(session_ans) == len(survey.questions):
         return redirect("/thanks")
 
-    return redirect(f"/questions/{len(responses)}")
+    return redirect(f"/questions/{len(session_ans)}")
 
 
 @app.route("/thanks")
-""" thank you page that shows after user answers all questions"""
-
-
 def thanks_page():
+    ''' thank you page that shows after user answers all questions'''
     return render_template("thanks.html")
