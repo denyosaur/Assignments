@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section id="gameboard">
+    <div class="row">
+        <div class="column left">
+            <div id="timer">Time Left: <span id="time">60</span> seconds
+            </div>
+            <div class="go-hide">
+                <p>Find some words and enter it below!</p>
+                <hr>
+                <form action="" id="answer-submit">
+                    <input type="text" name="guess" id="guess" placeholder="Enter your guess">
+                    <button id="sendAnswer">Submit!</button>
+                </form>
+                Did it Work?
+                <div class="status-msg">
+                </div>
+            </div>
+            <hr>
+            <div class="game-info">
+                <div class="scoreboard">
+                    <p>Total Points: <span class="total-points">0</span></p>
+                </div>
+                <p>List of submitted words:</p>
+                <ul class="correct-words">
+                </ul>
+            </div>
+            <hr>
+            <form action="/">
+                <button>Reset!</button>
+            </form>
+        </div>
+        <div class="column right">
+            <div class="game-board">
+                <div class="game-frame">
+                    {% for line in board %}
+                    <div class="row">
+                        {% for char in line %}
+                        <div class="letter-block">
+                            <span class="letter">{{char}}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/boggle.css" />
+    <link rel="shortcut icon" href="#">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="/" class="home">Boggle</a>
+        <a href="https://www.dictionary.com/">Dictionary</a>
+        <a href="https://en.wikipedia.org/wiki/Boggle">About</a>
+    </nav>
+    <h1>{% block header %}{% endblock %}</h1>
+    {% block content %}
+    {% endblock %}
+    <script src="http://unpkg.com/jquery"></script>
+    <script src="http://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/lodash"></script>
+    <script src="/static/boggle.js"></script>
+    <script>let game = new PlayBoggle("gameboard");</script>
+</body>
+
+</html>
