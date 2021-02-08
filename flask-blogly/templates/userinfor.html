@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Blogly - User Info{% endblock %}
+{% block header %}<h1>User Info</h1>{% endblock %}
+{% block body %}
+<h2>{{user_info.first_name}} {{user_info.last_name}}</h2>
+<img src="{{user_info.img_url}}" alt="profile_picture">
+<form action="">
+    <Button id="edit_button" formaction="/users/{{user_info.id}}/edit">Edit</Button>
+    <Button id="delete_button" formaction="/users/{{user_info.id}}/delete" formmethod="POST">Delete</Button>
+</form>
+{% endblock %}

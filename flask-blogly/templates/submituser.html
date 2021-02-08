@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Blogly - Submit User{% endblock %}
+{% block header %}<h1>Create a User</h1>{% endblock %}
+{% block body %}
+<form action="" method="POST">
+    First Name: <input type="text" name="first" placeholder="First Name">
+    Last Name: <input type="text" name="last" placeholder="Last Name">
+    Image URL: <input type="text" name="img" placeholder="Image Url">
+    <button id="create_user">Submit</button>
+</form>
+{% endblock %}
